@@ -1,0 +1,30 @@
+<select id = 'countries'></select>
+<br>
+<input id="countryName" type="text" placeholder = "Add country"><button onclick="AddNewCountry()">+</button>
+
+<script>
+function AddNewCountry()
+{
+    var countryName= document.getElementById('countryName')
+    // alert(countryName.value)
+    fetch('http://localhost:3000/addcountry',{
+        method: 'POST',
+        headers:
+         {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+      body: JSON.stringify({id: 0, name: countryName.value})
+});
+}
+    fetch('http://localhost:3000/countries')
+    .then(response => response.json())
+    .then(json => {
+      var countries = document.getElementById('countries')
+     json.forEach(c => {
+         var myOption = document.createElement('option')
+         myOption.innerText = c.name
+         countries.appendChild(myOption);
+  });
+})
+</script>
